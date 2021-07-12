@@ -10,7 +10,7 @@ var userFormHandler = function (event) {
 
   if (localStorage.getItem("searchHistory") == null) {
     localStorage.setItem("searchHistory", "[]");
-  }
+   }
 
   var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
   searchHistory.unshift(userInput);
