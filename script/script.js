@@ -19,6 +19,7 @@ var userFormHandler = function (event) {
   userInputEl.value = "";
 
   renderHistory();
+  getWeatherApi(userInput);
 };
 
 var renderHistory = function () {
@@ -29,4 +30,26 @@ var renderHistory = function () {
   }
 };
 
+var getWeatherApi = function (userInput) {
+  var requestUrl =
+    "api.openweathermap.org/data/2.5/forecast?q=" +
+    userInput +
+    "&units=imperial&appid=5259fc0e54d33813248bd91f72b795bd";
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+     
+      renderJumbotron(data);
+      
+    });
+};
+
 inputFormEl.addEventListener("submit", userFormHandler);
+
+// 5259fc0e54d33813248bd91f72b795bd
+
+// api.openweathermap.org/data/2.5/forecast?q=raleigh&appid=5259fc0e54d33813248bd91f72b795bd
+
+// https://source.unsplash.com/1600x900/?raleigh
