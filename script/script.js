@@ -2,6 +2,7 @@ var userInputEl = document.getElementById("user-input");
 var inputFormEl = document.getElementById("input-form");
 var showingResultsDiv = document.getElementById("showing-results");
 var citiesDiv = document.getElementById("cities");
+var apiKey = "5259fc0e54d33813248bd91f72b795bd";
 
 var userFormHandler = function (event) {
   event.preventDefault();
@@ -36,7 +37,8 @@ var getWeatherApi = function (userInput) {
   var requestUrl =
     "http://api.openweathermap.org/data/2.5/forecast?q=" +
     userInput +
-    "&units=imperial&appid=5259fc0e54d33813248bd91f72b795bd";
+    "&units=imperial&appid=" +
+    apiKey;
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -48,7 +50,7 @@ var getWeatherApi = function (userInput) {
 
 var renderJumbotron = function (data) {
   showingResultsDiv.innerHTML = `
-  <div class="jumbotron ">
+  <div class="jumbotron p-3">
   <h1 class="display-4"><b>${data.city.name}</b>(${moment
     .unix(data.list[0].dt)
     .format("MM/DD/YYYY")})</h1>
@@ -57,7 +59,7 @@ var renderJumbotron = function (data) {
   <p>Humidity: ${data.list[0].main.humidity} %<br></p>
   <p>UV index: <span id="uvIndexEl"></span> <p/>
   </div>
-<div id="fiveDaysForCast"></div>
+<div id="fiveDaysForCast" class='row d-flex justify-content-around p-3'></div>
   `;
   renderUvIndex(data.city.coord.lat, data.city.coord.lon);
   renderFiveDaysForCast(data);
@@ -65,8 +67,7 @@ var renderJumbotron = function (data) {
 };
 
 var renderUvIndex = function (lat, lon) {
-  console.log(lat, lon);
-  var requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=5259fc0e54d33813248bd91f72b795bd`;
+  var requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
   fetch(requestUrl)
     .then(function (response) {
@@ -82,9 +83,30 @@ var renderUvIndex = function (lat, lon) {
           : `<button type="button" class="btn btn-danger">${uvIndex}</button>`;
     });
 };
+var renderFiveDaysForCast = function (data) {
+ 
+  var neededWeather = [1, 6, 14, 22, 30];
+  
+  for (var i = 0; i < neededWeather.length; i++) {
+    var icon = `https://openweathermap.org/img/w/${data.list[neededWeather[i]].weather[0].icon}.png`
+    document.getElementById("fiveDaysForCast").innerHTML += `
+  <div class="card col-2 align-self-baseline" >
 
-
-
+  <div class="card-body">
+    <h5 class="card-title">${moment
+      .unix(data.list[neededWeather[i]].dt)
+      .format("MM/DD/YYYY")}</h5><br>
+      <img src='${icon}'/>
+      <p class="lead">Temp: ${
+        data.list[neededWeather[i]].main.temp
+      } &#8457;<br></p>
+      <p>Wind: ${data.list[neededWeather[i]].wind.speed} MPH<br></p>
+      <p>Humidity: ${data.list[neededWeather[i]].main.humidity} %<br></p>
+   </div>
+</div>
+`;
+  }
+};
 
 inputFormEl.addEventListener("submit", userFormHandler);
 
