@@ -26,7 +26,7 @@ var userFormHandler = function (event) {
 var renderHistory = function () {
   var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
   citiesDiv.innerHTML = "";
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < searchHistory.length; i++) {
     if (searchHistory[i] !== "") {
       citiesDiv.innerHTML += `<button data-city='${searchHistory[i]}' class="btn btn-secondary bg-gradient w-100 my-1" type="button">${searchHistory[i]}</button>`;
     }
