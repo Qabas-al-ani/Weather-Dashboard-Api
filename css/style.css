@@ -1,12 +1,20 @@
 .card{
     border: none;
+
 }
 
 body {
+    font-family: 'Cinzel', serif;
     background-repeat: no-repeat;
     background-size: cover;
 }
 .jumbotron {
-    background: black;
-    color: white
+  
+    color: white;
+    opacity: 0.9;
+     
+}
+
+.customCard {
+    opacity: 0.9;
 }

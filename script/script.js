@@ -26,9 +26,9 @@ var userFormHandler = function (event) {
 var renderHistory = function () {
   var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
   citiesDiv.innerHTML = "";
-  for (var i = 0; i < searchHistory.length; i++) {
+  for (var i = 0; i < 10; i++) {
     if (searchHistory[i] !== "") {
-      citiesDiv.innerHTML += `<button class="btn btn-primary w-100 my-1" type="button">${searchHistory[i]}</button>`;
+      citiesDiv.innerHTML += `<button data-city='${searchHistory[i]}' class="btn btn-secondary bg-gradient w-100 my-1" type="button">${searchHistory[i]}</button>`;
     }
   }
 };
@@ -50,10 +50,10 @@ var getWeatherApi = function (userInput) {
 
 var renderJumbotron = function (data) {
   showingResultsDiv.innerHTML = `
-  <div class="jumbotron p-3">
-  <h1 class="display-4"><b>${data.city.name}</b>(${moment
+  <div class="jumbotron p-3 m-2 bg-dark bg-gradient w-25 rounded ">
+  <h3 ><b>${data.city.name}</b>(${moment
     .unix(data.list[0].dt)
-    .format("MM/DD/YYYY")})</h1>
+    .format("MM/DD/YYYY")})</h3>
   <p class="lead">Temp: ${data.list[0].main.temp} &#8457;<br></p>
   <p>Wind: ${data.list[0].wind.speed} MPH<br></p>
   <p>Humidity: ${data.list[0].main.humidity} %<br></p>
@@ -77,10 +77,10 @@ var renderUvIndex = function (lat, lon) {
       var uvIndex = data.current.uvi;
       document.getElementById("uvIndexEl").innerHTML =
         uvIndex < 3
-          ? `<button type="button" class="btn btn-success">${uvIndex}</button>`
+          ? `<button type="button" class="btn btn-success bg-gradient">${uvIndex}</button>`
           : uvIndex < 6
-          ? `<button type="button" class="btn btn-warning">${uvIndex}</button>`
-          : `<button type="button" class="btn btn-danger">${uvIndex}</button>`;
+          ? `<button type="button" class="btn btn-warning bg-gradient">${uvIndex}</button>`
+          : `<button type="button" class="btn btn-danger bg-gradient">${uvIndex}</button>`;
     });
 };
 var renderFiveDaysForCast = function (data) {
@@ -90,7 +90,7 @@ var renderFiveDaysForCast = function (data) {
   for (var i = 0; i < neededWeather.length; i++) {
     var icon = `https://openweathermap.org/img/w/${data.list[neededWeather[i]].weather[0].icon}.png`
     document.getElementById("fiveDaysForCast").innerHTML += `
-  <div class="card col-2 align-self-baseline" >
+  <div class="card col-2 mt-5 customCard bg-dark bg-gradient text-white"  >
 
   <div class="card-body">
     <h5 class="card-title">${moment
@@ -108,6 +108,14 @@ var renderFiveDaysForCast = function (data) {
   }
 };
 
+var buttonClickHandler = function(event){
+  var city = event.target.getAttribute('data-city')
+  if(city){
+    getWeatherApi(city);
+  }
+}
+
+citiesDiv.addEventListener('click', buttonClickHandler);
 inputFormEl.addEventListener("submit", userFormHandler);
 
 // 5259fc0e54d33813248bd91f72b795bd
