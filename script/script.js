@@ -35,7 +35,7 @@ var renderHistory = function () {
 
 var getWeatherApi = function (userInput) {
   var requestUrl =
-    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    "https://api.openweathermap.org/data/2.5/forecast?q=" +
     userInput +
     "&units=imperial&appid=" +
     apiKey;
