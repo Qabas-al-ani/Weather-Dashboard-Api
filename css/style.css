@@ -1,20 +1,17 @@
-.card{
-    border: none;
-
+.card {
+  border: none;
 }
 
 body {
-    font-family: 'Cinzel', serif;
-    background-repeat: no-repeat;
-    background-size: cover;
+  font-family: "Cinzel", serif;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .jumbotron {
-  
-    color: white;
-    opacity: 0.9;
-     
+  color: white;
+  opacity: 0.9;
 }
 
 .customCard {
-    opacity: 0.9;
+  opacity: 0.9;
 }

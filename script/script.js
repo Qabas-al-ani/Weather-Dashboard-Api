@@ -84,11 +84,12 @@ var renderUvIndex = function (lat, lon) {
     });
 };
 var renderFiveDaysForCast = function (data) {
- 
   var neededWeather = [1, 6, 14, 22, 30];
-  
+
   for (var i = 0; i < neededWeather.length; i++) {
-    var icon = `https://openweathermap.org/img/w/${data.list[neededWeather[i]].weather[0].icon}.png`
+    var icon = `https://openweathermap.org/img/w/${
+      data.list[neededWeather[i]].weather[0].icon
+    }.png`;
     document.getElementById("fiveDaysForCast").innerHTML += `
   <div class="card col-2 mt-5 customCard bg-dark bg-gradient text-white"  >
 
@@ -102,24 +103,18 @@ var renderFiveDaysForCast = function (data) {
       } &#8457;<br></p>
       <p>Wind: ${data.list[neededWeather[i]].wind.speed} MPH<br></p>
       <p>Humidity: ${data.list[neededWeather[i]].main.humidity} %<br></p>
-   </div>
+    </div>
 </div>
 `;
   }
 };
 
-var buttonClickHandler = function(event){
-  var city = event.target.getAttribute('data-city')
-  if(city){
+var buttonClickHandler = function (event) {
+  var city = event.target.getAttribute("data-city");
+  if (city) {
     getWeatherApi(city);
   }
-}
+};
 
-citiesDiv.addEventListener('click', buttonClickHandler);
+citiesDiv.addEventListener("click", buttonClickHandler);
 inputFormEl.addEventListener("submit", userFormHandler);
-
-// 5259fc0e54d33813248bd91f72b795bd
-
-// api.openweathermap.org/data/2.5/forecast?q=raleigh&appid=5259fc0e54d33813248bd91f72b795bd
-
-// https://source.unsplash.com/1600x900/?raleigh
