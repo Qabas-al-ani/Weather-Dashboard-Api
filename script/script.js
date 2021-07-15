@@ -1,9 +1,11 @@
+// created a variables that i will use to create the functionality of javascript
 var userInputEl = document.getElementById("user-input");
 var inputFormEl = document.getElementById("input-form");
 var showingResultsDiv = document.getElementById("showing-results");
 var citiesDiv = document.getElementById("cities");
 var apiKey = "5259fc0e54d33813248bd91f72b795bd";
 
+// I created two functions! first one that will not make the page reload… …and second one will get the info from the user and save it to the local storage and save in an array so we can see it later when it needed
 var userFormHandler = function (event) {
   event.preventDefault();
 
@@ -23,6 +25,7 @@ var userFormHandler = function (event) {
   getWeatherApi(userInput);
 };
 
+// added render history function that will render cities from the local storage and show it on the actual web page after user made his choice
 var renderHistory = function () {
   var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
   citiesDiv.innerHTML = "";
@@ -33,6 +36,7 @@ var renderHistory = function () {
   }
 };
 
+// I created a get weather api function that will make an api call and get the weather data needed
 var getWeatherApi = function (userInput) {
   var requestUrl =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
@@ -48,6 +52,7 @@ var getWeatherApi = function (userInput) {
     });
 };
 
+// I added a bootstrap jumbotron to my javascript that will render info from the api weather and show it on a web page for each city needed and will make a call to a function that will render a uv index
 var renderJumbotron = function (data) {
   showingResultsDiv.innerHTML = `
   <div class="jumbotron p-3 m-2 bg-dark bg-gradient rounded ">
@@ -59,7 +64,7 @@ var renderJumbotron = function (data) {
   <p>Humidity: ${data.list[0].main.humidity} %<br></p>
   <p>UV index: <span id="uvIndexEl"></span><p/>
   </div>
-  <h1 class="text-white ms-3 ">5-Day Forcast</h1>
+  <h1 class="text-white ms-3 ">5-Day Forecast</h1>
 <div id="fiveDaysForCast" class='row d-flex justify-content-around p-3'></div>
   `;
   renderUvIndex(data.city.coord.lat, data.city.coord.lon);
@@ -67,6 +72,7 @@ var renderJumbotron = function (data) {
   document.body.style.backgroundImage = `url('https://source.unsplash.com/1600x900/?${data.city.name}')`;
 };
 
+// This function will get the data from the api and render the button depend on the conditions 
 var renderUvIndex = function (lat, lon) {
   var requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
@@ -84,6 +90,8 @@ var renderUvIndex = function (lat, lon) {
           : `<button type="button" class="btn btn-danger bg-gradient">${uvIndex}</button>`;
     });
 };
+
+// i added five days forecast function that will render five cards with an information needed for any city the user chose
 var renderFiveDaysForCast = function (data) {
   var neededWeather = [1, 6, 14, 22, 30];
 
@@ -110,6 +118,7 @@ var renderFiveDaysForCast = function (data) {
   }
 };
 
+// i added a button Click Handler function that will render the targeted button city
 var buttonClickHandler = function (event) {
   var city = event.target.getAttribute("data-city");
   if (city) {
@@ -117,5 +126,6 @@ var buttonClickHandler = function (event) {
   }
 };
 
+// added an event listener
 citiesDiv.addEventListener("click", buttonClickHandler);
 inputFormEl.addEventListener("submit", userFormHandler);
