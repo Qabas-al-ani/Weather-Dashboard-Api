@@ -19,9 +19,9 @@ I added a screenshot of the Weather Dashboard, and also i included a little vide
 
 ### A Screenshot of my deployed Weather Dashboard Api:
 
-![ScreenShots](https://github.com/Qabas-al-ani/Weather-Dashboard-Api/blob/main/images/JavaScript-Quiz3.png)  
- ![ScreenShots](https://github.com/Qabas-al-ani/Weather-Dashboard-Api/blob/main/images/JavaScript-Quiz2.png)  
- ![ScreenShots](https://github.com/Qabas-al-ani/Weather-Dashboard-Api/blob/main/images/JavaScript-Quiz1.png)  
+![ScreenShots](https://github.com/Qabas-al-ani/Weather-Dashboard-Api/blob/main/screenshots/Weather-Dashboard-Api1.png)  
+ ![ScreenShots](https://github.com/Qabas-al-ani/Weather-Dashboard-Api/blob/main/screenshots/Weather-Dashboard-Api2.png)  
+ ![ScreenShots](https://github.com/Qabas-al-ani/Weather-Dashboard-Api/blob/main/screenshots/Weather-Dashboard-Api3.png)  
 
 
 ### A demo of my Weather Dashboard Api:
