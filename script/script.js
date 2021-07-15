@@ -26,7 +26,7 @@ var userFormHandler = function (event) {
 var renderHistory = function () {
   var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
   citiesDiv.innerHTML = "";
-  for (var i = 0; i < searchHistory.length; i++) {
+  for (var i = 0; i < searchHistory.length && i < 8; i++) {
     if (searchHistory[i] !== "") {
       citiesDiv.innerHTML += `<button data-city='${searchHistory[i]}' class="btn btn-secondary bg-gradient w-100 my-1" type="button">${searchHistory[i]}</button>`;
     }
@@ -50,15 +50,16 @@ var getWeatherApi = function (userInput) {
 
 var renderJumbotron = function (data) {
   showingResultsDiv.innerHTML = `
-  <div class="jumbotron p-3 m-2 bg-dark bg-gradient w-25 rounded ">
+  <div class="jumbotron p-3 m-2 bg-dark bg-gradient rounded ">
   <h3 ><b>${data.city.name}</b>(${moment
     .unix(data.list[0].dt)
     .format("MM/DD/YYYY")})</h3>
   <p class="lead">Temp: ${data.list[0].main.temp} &#8457;<br></p>
   <p>Wind: ${data.list[0].wind.speed} MPH<br></p>
   <p>Humidity: ${data.list[0].main.humidity} %<br></p>
-  <p>UV index: <span id="uvIndexEl"></span> <p/>
+  <p>UV index: <span id="uvIndexEl"></span><p/>
   </div>
+  <h1 class="text-white ms-3 ">5-Day Forcast</h1>
 <div id="fiveDaysForCast" class='row d-flex justify-content-around p-3'></div>
   `;
   renderUvIndex(data.city.coord.lat, data.city.coord.lon);
@@ -91,7 +92,7 @@ var renderFiveDaysForCast = function (data) {
       data.list[neededWeather[i]].weather[0].icon
     }.png`;
     document.getElementById("fiveDaysForCast").innerHTML += `
-  <div class="card col-2 mt-5 customCard bg-dark bg-gradient text-white"  >
+  <div class="card col-lg-2 col-md-5  mt-5 customCard bg-dark bg-gradient text-white"  >
 
   <div class="card-body">
     <h5 class="card-title">${moment
